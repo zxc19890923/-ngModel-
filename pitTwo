@@ -1,0 +1,56 @@
+双向数据绑定的时候必须设置 name的值
+<input type="text" class="form-control" id="alterEgo" [(ngModel)]="model.name" name="name">
+
+
+通过$event获取用户数据
+通过#+自定义名称 获取用户输入
+事件 (keyup)(click)(keyup.enter)输入完毕并回车
+
+
+<p>
+    公司名称: {{name}}
+    <br/>
+    <br/>
+    公司地址: {{address}}
+</p>
+
+<ul>
+    <li *ngFor="let ho of hero">
+        <span *ngIf="ho.length > 0">{{ho}}</span>
+    </li>
+</ul>
+
+<p (click) = "clickMe()">单机效果: {{initi}}</p>
+<!--通过$event获取用户输入-->
+<p>通过$event来获取用户输入</p>
+<p>
+    <input type="text" (keyup) = "onKeyup($event)" />
+</p>
+<!--通过#命名来获取用户输入 #inputValue.value-->
+<p>通过#来获取用户输入</p>
+<p>
+    <!--不需要在组建中写任何代码,但必须要一个空时间来触发-->
+    <input type="text" #inputValue (keyup)="0" />
+</p>
+<p>
+    {{inputValue.value}}
+</p>
+
+<!--#也可以将数据传递到component进行交互-->
+<p>
+    <input type="text" #box (keyup) = "onKey(box.value)" />
+</p>
+<!--按键输入完毕以后,必须回车才起作用, keyup.enter-->
+<p>
+    <input type="text" #box (keyup.enter) = "onKey(box.value)" (blur)="onKey(box.value)"/>
+</p>
+
+<!--实现回车添加一条记录-->
+<p>按钮上回车事件,添加条目</p>
+<input type="text" #item />
+<input type="button" (keyup.enter)="onKeyEnter(item.value)" value="add"/>
+<ul>
+    <li *ngFor="let it of list">
+        {{it}}
+    </li>
+</ul>
